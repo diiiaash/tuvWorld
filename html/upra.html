@@ -1,0 +1,585 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TUV.WORLD - Викторина для детей</title>
+    <style>
+        /* общее */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            color: #8A9A5B;
+            line-height: 1.5;
+            background-color: #f8faf6;
+        }
+
+        /* для навбара */
+        .navbar {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            justify-content: space-between;
+            border-bottom: 2px solid #8A9A5B;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.8rem;
+            color: #8A9A5B;
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+            .nav-links a {
+                color: #8A9A5B;
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+        /* фотка во всю ширинц */
+        .hero {
+            position: relative;
+            width: 100%;
+            max-height: 350px;
+            overflow: hidden;
+        }
+
+            .hero img {
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+                filter: brightness(0.7);
+            }
+
+            .hero h1 {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: #8A9A5B;
+                font-size: 3.5rem;
+                font-weight: 900;
+                user-select: none;
+            }
+
+        /* Викторина */
+        .quiz-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+            .quiz-header h2 {
+                font-size: 2.5rem;
+                color: #8A9A5B;
+                margin-bottom: 1rem;
+            }
+
+            .quiz-header p {
+                font-size: 1.2rem;
+                color: #666;
+            }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #8A9A5B;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(138, 154, 91, 0.15);
+            border: 2px solid #8A9A5B;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #4a5a1a;
+            font-weight: 600;
+        }
+
+        .images-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+            .quiz-image:hover {
+                transform: scale(1.05);
+                border-color: #8A9A5B;
+            }
+
+        .input-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .answer-input {
+            flex: 1;
+            padding: 1rem;
+            font-size: 1.2rem;
+            border: 2px solid #8A9A5B;
+            border-radius: 8px;
+            outline: none;
+            color: #8A9A5B;
+        }
+
+            .answer-input:focus {
+                border-color: #6B7B4B;
+                box-shadow: 0 0 0 3px rgba(138, 154, 91, 0.2);
+            }
+
+        .submit-btn {
+            background: #8A9A5B;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+            .submit-btn:hover {
+                background: #6B7B4B;
+            }
+
+            .submit-btn:disabled {
+                background: #cccccc;
+                cursor: not-allowed;
+            }
+
+        .result-message {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .correct {
+            background-color: #e8f5e8;
+            color: #2d5016;
+            border: 2px solid #4caf50;
+        }
+
+        .incorrect {
+            background-color: #ffe8e8;
+            color: #8b0000;
+            border: 2px solid #f44336;
+        }
+
+        .next-btn {
+            background: #8A9A5B;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
+            transition: background 0.3s ease;
+        }
+
+            .next-btn:hover {
+                background: #6B7B4B;
+            }
+
+        .quiz-complete {
+            text-align: center;
+            padding: 3rem;
+        }
+
+            .quiz-complete h3 {
+                font-size: 2rem;
+                color: #8A9A5B;
+                margin-bottom: 1rem;
+            }
+
+            .quiz-complete p {
+                font-size: 1.3rem;
+                margin-bottom: 2rem;
+            }
+
+        .restart-btn {
+            background: #8A9A5B;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+            .restart-btn:hover {
+                background: #6B7B4B;
+            }
+
+        /* подвал сайта */
+        footer {
+            background-color: #8A9A5B;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            font-size: 1rem;
+            margin-top: 3rem;
+        }
+
+        /* адаптив */
+        @media (max-width: 768px) {
+            .images-container {
+                grid-template-columns: 1fr;
+            }
+
+            .input-container {
+                flex-direction: column;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .quiz-header h2 {
+                font-size: 2rem;
+            }
+
+            .question-text {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .quiz-card {
+                padding: 1rem;
+            }
+
+            .quiz-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">TUV.WORLD</a>
+        <div class="nav-links">
+            <a href="index.html">Главная</a>
+            <a href="alphabet.html">Cловарь</a>
+            <a href="media.html">Медиа</a>
+            <a href="upra.html">Упражнения (дети)</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <img src="media\главная1.webp" alt="TUV.WORLD" />
+        <h1>Викторина для детей</h1>
+    </section>
+
+    <section class="quiz-container">
+        <div class="quiz-header">
+            <h2>Угадай слово по картинкам!</h2>
+            <p>Посмотри на фотографии и попробуй угадать, какое слово они обозначают</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="quiz-card">
+            <div id="quiz-content">
+                <!-- Сюда будет загружаться контент викторины -->
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        Мультимедийный словарь тувинского языка.<br />
+        2025. Все права защищены<br />
+        Для справок: <a href="mailto:tuv.world@mail.ru" style="color: white;">tuv.world@mail.ru</a>
+    </footer>
+
+    <script>
+        // Данные викторины
+        const quizData = [
+            {
+                question: "Что объединяет эти картинки?",
+                images: [
+                    "media/кажаа1.jfif",
+                    "media/кажаа2.jfif",
+                    "media/кажаа3.jfif"
+                ],
+                answer: "кажаа",
+                hint: "Это то, куда загоняют скот"
+            },
+            {
+                question: "Какое слово здесь загадано?",
+                images: [
+                    "media/деспи1.jfif",
+                    "media/деспи2.jfif",
+                    "media/деспи3.jfif"
+                ],
+                answer: "деспи",
+                hint: "Туда кладут изиг-хан"
+            },
+            {
+                question: "Что изображено на фотографиях?",
+                images: [
+                    "media/улугсек1.jfif",
+                    "media/улугсек2.jfif",
+                    "media/улугсек3.jfif"
+                ],
+                answer: "улуг сек",
+                hint: "Знак препинания после предложения"
+            },
+            {
+                question: "Угадай общее слово",
+                images: [
+                    "media/шооча1.jfif",
+                    "media/шооча2.jfif",
+                    "media/шооча3.jfif"
+                ],
+                answer: "шооча",
+                hint: "То, чем мы закрываем двери с помощью ключа"
+            },
+            {
+                question: "Что это может быть?",
+                images: [
+                    "media/элезин1.jfif",
+                    "media/элезин2.jfif",
+                    "media/элезин3.jfif"
+                ],
+                answer: "элезин",
+                hint: "Из него можно строить замки на пляже"
+            },
+            {
+                question: "Какое слово здесь спрятано?",
+                images: [
+                    "media/хир1.jfif",
+                    "media/хир2.jfif",
+                    "media/хир3.jfif"
+                ],
+                answer: "хир",
+                hint: "Грязь, слякоть и неухоженность по-тувински"
+            },
+            {
+                question: "Что объединяет эти изображения?",
+                images: [
+                    "media/оваа1.jfif",
+                    "media/оваа2.jfif",
+                    "media/оваа3.jfif"
+                ],
+                answer: "оваа",
+                hint: "Место, где проводят обряды"
+            },
+            {
+                question: "Угадай слово",
+                images: [
+                    "media/кыш.jfif",
+                    "media/кыш2.jfif",
+                    "media/кыш3.jfif"
+                ],
+                answer: "кыш",
+                hint: "Время года"
+            },
+            {
+                question: "Что это?",
+                images: [
+                    "media/демиружук1.jfif",
+                    "media/демиружук2.jfif",
+                    "media/демиружук3.jfif"
+                ],
+                answer: "демир ужук",
+                hint: "То, чем ведут записи в тетради"
+            },
+            {
+                question: "Какое общее слово?",
+                images: [
+                    "media/бажын1.jfif",
+                    "media/бажын2.jfif",
+                    "media/бажын3.jfif"
+                ],
+                answer: "бажын",
+                hint: "Место, где мы живем"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        // Функция для отображения вопроса
+        function showQuestion() {
+            const quizContent = document.getElementById('quiz-content');
+            const progress = document.getElementById('progress');
+
+            // Обновляем прогресс-бар
+            progress.style.width = `${((currentQuestion) / quizData.length) * 100}%`;
+
+            if (currentQuestion < quizData.length) {
+                const question = quizData[currentQuestion];
+
+                quizContent.innerHTML = `
+                    <div class="question-text">${question.question}</div>
+
+                    <div class="images-container">
+                        ${question.images.map(img => `
+                            <img src="${img}" alt="Подсказка" class="quiz-image"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZThmMmRhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM4QTlBNUIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7Qn9C+0LTQutC70Y7Rh9C10L3QuNC1PC90ZXh0Pjwvc3ZnPg=='">
+                        `).join('')}
+                    </div>
+
+                    <div class="input-container">
+                        <input type="text" class="answer-input" id="answer-input"
+                               placeholder="Впиши свой ответ здесь..." autocomplete="off">
+                        <button class="submit-btn" onclick="checkAnswer()">Проверить</button>
+                    </div>
+
+                    <div class="result-message" id="result-message"></div>
+
+                    <button class="next-btn" id="next-btn" onclick="nextQuestion()" style="display: none;">
+                        Дальше →
+                    </button>
+                `;
+
+                // Добавляем обработчик нажатия Enter
+                document.getElementById('answer-input').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkAnswer();
+                    }
+                });
+            } else {
+                // Конец викторины
+                showResults();
+            }
+        }
+
+        // Функция проверки ответа
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answer-input').value.toLowerCase().trim();
+            const correctAnswer = quizData[currentQuestion].answer.toLowerCase();
+            const resultMessage = document.getElementById('result-message');
+            const submitBtn = document.querySelector('.submit-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            if (!userAnswer) {
+                alert('Пожалуйста, введите ответ!');
+                return;
+            }
+
+            // Более гибкая проверка ответа
+            const isCorrect = userAnswer === correctAnswer ||
+                             correctAnswer.includes(userAnswer) ||
+                             userAnswer.includes(correctAnswer);
+
+            if (isCorrect) {
+                resultMessage.textContent = 'Правильно! 🎉 Молодец!';
+                resultMessage.className = 'result-message correct';
+                score++;
+            } else {
+                resultMessage.textContent = `Почти угадал! Правильный ответ: "${quizData[currentQuestion].answer}". Подсказка: ${quizData[currentQuestion].hint}`;
+                resultMessage.className = 'result-message incorrect';
+            }
+
+            resultMessage.style.display = 'block';
+            submitBtn.disabled = true;
+            nextBtn.style.display = 'block';
+            document.getElementById('answer-input').disabled = true;
+        }
+
+        // Следующий вопрос
+        function nextQuestion() {
+            currentQuestion++;
+            showQuestion();
+        }
+
+        // Показать результаты
+        function showResults() {
+            const quizContent = document.getElementById('quiz-content');
+            const progress = document.getElementById('progress');
+
+            progress.style.width = '100%';
+
+            quizContent.innerHTML = `
+                <div class="quiz-complete">
+                    <h3>Викторина завершена! 🎊</h3>
+                    <p>Твой результат: <strong>${score} из ${quizData.length}</strong></p>
+                    <p>${getResultMessage(score, quizData.length)}</p>
+                    <button class="restart-btn" onclick="restartQuiz()">Играть ещё раз</button>
+                </div>
+            `;
+        }
+
+        // Сообщение в зависимости от результата
+        function getResultMessage(score, total) {
+            const percentage = (score / total) * 100;
+
+            if (percentage >= 90) return 'Отличный результат! Ты настоящий знаток! 🌟';
+            if (percentage >= 70) return 'Очень хороший результат! Так держать! 👍';
+            if (percentage >= 50) return 'Хороший результат! Можно ещё потренироваться! 💪';
+            return 'Неплохо! Попробуй ещё раз, будет лучше! 😊';
+        }
+
+        // Перезапуск викторины
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            showQuestion();
+        }
+
+        // Запускаем викторину при загрузке страницы
+        document.addEventListener('DOMContentLoaded', showQuestion);
+    </script>
+</body>
+</html>

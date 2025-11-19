@@ -1,0 +1,658 @@
+﻿/* styles rus.css - Единый стиль для всего сайта */
+
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #495057;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Навбар */
+.navbar {
+    background: rgba(248, 249, 250, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #495057;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 2rem;
+}
+
+    .navbar-links a {
+        text-decoration: none;
+        color: #6c757d;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+        .navbar-links a:hover {
+            background: #3498db;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .navbar-links a:active {
+            transform: translateY(0);
+        }
+
+/* Основной контент */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.main-title {
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #495057;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 2px;
+}
+
+/* === СТИЛИ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ (СЛОВАРЬ) === */
+
+/* Поиск */
+#searchInput {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 3rem auto;
+    display: block;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #495057;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+    #searchInput::placeholder {
+        color: #95a5a6;
+    }
+
+    #searchInput:focus {
+        transform: scale(1.02);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        border-color: #3498db;
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+/* Фреймы с словами */
+.frames {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.frame {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid #dee2e6;
+}
+
+.word-list {
+    list-style: none;
+    display: grid;
+    gap: 0.8rem;
+}
+
+    .word-list li {
+        padding: 1rem 1.5rem;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        color: #495057;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border: 1px solid #dee2e6;
+    }
+
+        .word-list li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: #ffffff;
+        }
+
+        .word-list li:active {
+            transform: translateY(0);
+        }
+
+/* === СТИЛИ ДЛЯ СТРАНИЦЫ УПРАЖНЕНИЙ === */
+
+/* Инструкции */
+.instructions {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    color: #495057;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #3498db;
+    font-weight: 600;
+}
+
+/* Фреймы для упражнений */
+.exercises-frame {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid #dee2e6;
+    margin-bottom: 2rem;
+}
+
+/* Упражнения */
+.exercise {
+    background: rgba(248, 249, 250, 0.8);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid #3498db;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    color: #495057;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+    .exercise:hover {
+        background: rgba(255, 255, 255, 0.95);
+        transform: translateX(5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+.exercise-number {
+    font-weight: 700;
+    color: #2c3e50;
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.word {
+    font-weight: 700;
+    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    font-size: 1.2rem;
+}
+
+/* === СТИЛИ ДЛЯ СТРАНИЦЫ ПРАВИЛ === */
+
+/* Заголовки разделов */
+h1 {
+    font-size: 2.3rem;
+    color: #2c3e50;
+    margin: 3rem 0 2rem 0;
+    font-weight: 700;
+    text-align: center;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #3498db;
+}
+
+/* Фреймы для правил */
+.rules-frame {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid #dee2e6;
+    margin-bottom: 3rem;
+}
+
+/* Правила */
+.rule {
+    background: rgba(248, 249, 250, 0.8);
+    padding: 1.8rem 2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid #3498db;
+    transition: all 0.3s ease;
+    font-size: 1.15rem;
+    color: #495057;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+    .rule:hover {
+        background: rgba(255, 255, 255, 0.95);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+/* Примеры */
+.examples {
+    background: rgba(52, 152, 219, 0.1);
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    border-left: 3px solid #3498db;
+    font-style: italic;
+}
+
+    .examples p {
+        margin: 0.5rem 0;
+        color: #2c3e50;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+/* Примечания */
+.note {
+    background: rgba(231, 76, 60, 0.1);
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid #e74c3c;
+    color: #c0392b;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Блок поделиться */
+.share {
+    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    text-align: center;
+    margin: 2rem 0;
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Выделение текста */
+em {
+    color: #e74c3c;
+    font-style: italic;
+    font-weight: 700;
+}
+
+/* === СТИЛИ ДЛЯ СТРАНИЦЫ МЕДИА === */
+
+/* Секция медиа */
+.media-section {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid #dee2e6;
+}
+
+    .media-section h2 {
+        text-align: center;
+        font-size: 2.2rem;
+        color: #495057;
+        margin-bottom: 2rem;
+        font-weight: 700;
+    }
+
+.media-videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+    .media-videos iframe {
+        width: 100%;
+        height: 280px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border: 1px solid #dee2e6;
+        transition: transform 0.3s ease;
+    }
+
+        .media-videos iframe:hover {
+            transform: scale(1.02);
+        }
+
+.media-section p {
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    font-size: 1.1rem;
+}
+
+    .media-section p:last-of-type {
+        margin-bottom: 0;
+    }
+
+/* === ОБЩИЕ КОМПОНЕНТЫ === */
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalAppear 0.3s ease-out;
+    border: 1px solid #dee2e6;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #6c757d;
+    transition: color 0.3s ease;
+}
+
+    .close:hover {
+        color: #e74c3c;
+    }
+
+#explanationText {
+    font-size: 1.3rem;
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* Викторина */
+.quiz {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 2.5rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid #dee2e6;
+}
+
+#question {
+    font-size: 1.4rem;
+    color: #495057;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+#answerOptions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+    #answerOptions button {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        min-width: 150px;
+    }
+
+        #answerOptions button:first-child {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+
+        #answerOptions button:last-child {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+        }
+
+        #answerOptions button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+    #answerOptions span {
+        font-weight: 600;
+        color: #6c757d;
+    }
+
+#result {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #495057;
+    border: 1px solid #dee2e6;
+}
+
+/* Футер */
+footer {
+    background: rgba(248, 249, 250, 0.95);
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+    color: #6c757d;
+    font-weight: 600;
+    font-size: 1.1rem;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid #dee2e6;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .navbar-links {
+        gap: 1rem;
+    }
+
+    .main-title {
+        font-size: 2.5rem;
+    }
+
+    .frames {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .frame {
+        padding: 1.5rem;
+    }
+
+    .word-list li {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .exercises-frame {
+        padding: 1.5rem;
+    }
+
+    .exercise {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .rules-frame {
+        padding: 1.5rem;
+    }
+
+    .rule {
+        padding: 1.2rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .media-section {
+        padding: 1.5rem;
+    }
+
+    .media-videos {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+        .media-videos iframe {
+            height: 250px;
+        }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .quiz {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    #answerOptions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+        #answerOptions button {
+            width: 100%;
+            max-width: 250px;
+        }
+
+    #question {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 1rem;
+    }
+
+    .main-title {
+        font-size: 2rem;
+    }
+
+    .modal-content {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+    }
+
+    #explanationText {
+        font-size: 1.1rem;
+    }
+
+    .word-list li {
+        padding: 0.7rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .exercise {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .rule {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .media-videos iframe {
+        height: 200px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .instructions {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .share {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+    }
+}
